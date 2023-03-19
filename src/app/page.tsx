@@ -1,91 +1,77 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import Head from 'next/head';
 const inter = Inter({ subsets: ['latin'] })
 
+const podcasts = [
+  {
+    id: 1,
+    title: 'The Joe Rogan Experience',
+    image: 'https://via.placeholder.com/150',
+    description: 'The Joe Rogan Experience podcast is a long-form conversation hosted by comedian Joe Rogan with friends and guests that have included comedians, actors, musicians, MMA fighters, authors, artists, and beyond.',
+    url: 'https://www.joerogan.com/',
+  },
+  {
+    id: 2,
+    title: 'Radiolab',
+    image: 'https://via.placeholder.com/150',
+    description: 'Radiolab is a show about curiosity. Where sound illuminates ideas, and the boundaries blur between science, philosophy, and human experience.',
+    url: 'https://www.wnycstudios.org/podcasts/radiolab',
+  },
+  {
+    id: 3,
+    title: 'Serial',
+    image: 'https://via.placeholder.com/150',
+    description: 'Serial is a podcast from the creators of This American Life, hosted by Sarah Koenig. Serial tells one story—a true story—over the course of a season.',
+    url: 'https://serialpodcast.org/',
+  },
+];
+
 export default function Home() {
+
   return (
+
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+      <Head>
+        <title>Podscribe</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+       <div>
+
+      <div className="container mx-auto mt-10">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-4xl font-bold">Podscribe</h1>
+
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search podcasts"
+              className="pl-8 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
             />
-          </a>
+            <div className="absolute top-0 left-4 ml-2 mt-2">
+              <FontAwesomeIcon icon={faSearch} className="text-gray-500" />
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {podcasts.map((podcast) => (
+            <div key={podcast.id} className="border border-gray-300 rounded-lg p-4">
+              <Link href={podcast.url}>
+                  <img src={podcast.image} alt={podcast.title} className="mb-2" />
+                  <h2 className="text-xl font-bold mb-2">{podcast.title}</h2>
+              </Link>
+              <p>{podcast.description}</p>
+            </div>
+          ))}
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    </div>
+      
     </main>
   )
 }
